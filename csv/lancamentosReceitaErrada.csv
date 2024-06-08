@@ -1,0 +1,9 @@
+ID,Data,Responsável,Despesa?,SubCategoria,Valor,Descrição
+1,01/05/24,Pai,FALSE,Principal,10000,Salário do papai
+2,02/05/24,Pai,FALSE,Salário,1000,Conserto computador vizinha
+3,02/05/24,Pai,TRUE,Cinema,50,Barbie
+4,03/05/24,Pai,TRUE,Cinema,48,Oppenheimer
+5,04/04/24,Pai,TRUE,Streaming,200,Netflux
+6,04/05/24,Pai,TRUE,Sacolão,343.27,Compra da semana
+7,05/05/24,Pai,TRUE,Supermercado,555.55,Compra da semana
+8,05/05/24,Zezinho,TRUE,Jardim da Infância,600,Escolinha SóTela
