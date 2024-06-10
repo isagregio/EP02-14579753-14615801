@@ -17,7 +17,7 @@ import usp.mac321.ep2.Usuario;
 
 // TO DO LIST
 
-// [] adicionar exceção de arquivo nao encontrado em tds as 4 funções
+// [ x ] adicionar exceção de arquivo nao encontrado em tds as 4 funções
  
 
 public class LeitorFinancasPessoaisCSV implements LeitorFinancasPessoaisDAO {
@@ -34,6 +34,7 @@ public class LeitorFinancasPessoaisCSV implements LeitorFinancasPessoaisDAO {
 		apelidos = new HashSet<>();
 		        
         try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivoUsuarios))) {
+            reader.readLine(); // IGNORA A PRIMEIRA LINHA 
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] partes = line.split(",");
@@ -49,6 +50,8 @@ public class LeitorFinancasPessoaisCSV implements LeitorFinancasPessoaisDAO {
                 usuarios.add(new Usuario(apelido, nome));
             }
         } catch (IOException e) {
+            // EXCECAO DE ARQUIVO NAO ENCONTRADO
+            throw new ArquivoNaoEncontradoException("Arquivo não encontrado: ");
             e.printStackTrace();
         } catch (ApelidoDuplicadoException e) {
         	return null; // é isso? o usuario nao recebe a exceção tb? 
@@ -61,6 +64,7 @@ public class LeitorFinancasPessoaisCSV implements LeitorFinancasPessoaisDAO {
 		tipos_despesas = new ArrayList<>();
         
         try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivoTiposDespesas))) {
+            reader.readLine(); // IGNORA A PRIMEIRA LINHA 
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] partes = line.split(",");
@@ -73,6 +77,8 @@ public class LeitorFinancasPessoaisCSV implements LeitorFinancasPessoaisDAO {
                 tipos_despesas.add(new TipoDespesa(categoria, subcategoria));
             }
         } catch (IOException e) {
+            // EXCECAO DE ARQUIVO NAO ENCONTRADO
+            throw new ArquivoNaoEncontradoException("Arquivo não encontrado: ");
             e.printStackTrace();
         }
 		return tipos_despesas;
@@ -83,6 +89,7 @@ public class LeitorFinancasPessoaisCSV implements LeitorFinancasPessoaisDAO {
 		tipos_receitas = new ArrayList<>();
         
         try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivoTiposReceitas))) {
+            reader.readLine(); // IGNORA A PRIMEIRA LINHA 
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] partes = line.split(",");
@@ -95,6 +102,8 @@ public class LeitorFinancasPessoaisCSV implements LeitorFinancasPessoaisDAO {
                 tipos_receitas.add(new TipoReceita(categoria, subcategoria));
             }
         } catch (IOException e) {
+            // EXCECAO DE ARQUIVO NAO ENCONTRADO
+            throw new ArquivoNaoEncontradoException("Arquivo não encontrado: ");
             e.printStackTrace();
         }
 		return tipos_receitas;
@@ -107,6 +116,7 @@ public class LeitorFinancasPessoaisCSV implements LeitorFinancasPessoaisDAO {
         Set<Long> identificadores = new HashSet<>();
         
         try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivoLancamentos))) {
+            reader.readLine(); // IGNORA A PRIMEIRA LINHA 
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] partes = line.split(",");
@@ -135,6 +145,8 @@ public class LeitorFinancasPessoaisCSV implements LeitorFinancasPessoaisDAO {
                 lancamentos.add(new Lancamento(identificador, data, despesa, getUsuario(apelido), getTipo(subcategoria, despesa), descricao, valor));
             }
         } catch (IOException e) {
+            // EXCECAO DE ARQUIVO NAO ENCONTRADO
+            throw new ArquivoNaoEncontradoException("Arquivo não encontrado: ");
             e.printStackTrace();
         } catch (ValorNegativoException | IdentificadorDuplicadoException | UsuarioInexistenteException | SubcategoriaIncoerenteException e) {
         	return null; // é isso? o usuario nao recebe a exceção tb? 
